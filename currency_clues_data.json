@@ -1,0 +1,141 @@
+{
+  "phases": [
+    {
+      "id": 1,
+      "name": "MISSION BRIEFING",
+      "alt_name": "Setup & Ascension",
+      "duration": "5-10 min",
+      "icon": "\ud83c\udfaf",
+      "description": "The Lead Architect delivers a visceral invocation\u2014igniting fevered anticipation and collective conviction for a world-altering cultural odyssey.",
+      "neuro_triggers": [
+        "Dopamine: Anticipation",
+        "Oxytocin: Group Bonding"
+      ],
+      "action_steps": [
+        "Instructor unveils the sacred mission and high-stakes objectives",
+        "Teams are formed with clear roles and purpose",
+        "Expectations are set for discovery and legacy creation"
+      ],
+      "psychological_goal": "Establish profound purpose and urgent curiosity"
+    },
+    {
+      "id": 2,
+      "name": "SECURE THE VAULT",
+      "alt_name": "Currency & Clue Assignment",
+      "duration": "20-30 min",
+      "icon": "\ud83d\udd10",
+      "description": "Each syndicate receives 3-5 international currencies with encrypted Clue Cards\u2014espionage meets archaeology, igniting primal engagement.",
+      "neuro_triggers": [
+        "Dopamine: Discovery",
+        "Serotonin: Possession/Status"
+      ],
+      "action_steps": [
+        "Teams claim their exclusive currency artifacts",
+        "Clue cards are distributed with cryptic details",
+        "Initial observations and hypotheses are formed"
+      ],
+      "psychological_goal": "Trigger ownership, exclusivity, and investigative drive"
+    },
+    {
+      "id": 3,
+      "name": "THE DECODE",
+      "alt_name": "Research & Identification",
+      "duration": "15-20 min",
+      "icon": "\ud83d\udd0d",
+      "description": "Through relentless analysis, teams deconstruct hidden codes, connect mythos to nation, and unravel epoch-spanning symbolism.",
+      "neuro_triggers": [
+        "Dopamine: Problem-Solving",
+        "Flow State: Deep Focus"
+      ],
+      "action_steps": [
+        "Use clue cards and visual analysis for symbol identification",
+        "Conduct digital research to verify origins and meanings",
+        "Document findings with precision and creativity"
+      ],
+      "psychological_goal": "Achieve flow state through challenge and mastery"
+    },
+    {
+      "id": 4,
+      "name": "LEGACY FORGING",
+      "alt_name": "Presentation Preparation",
+      "duration": "5-10 min",
+      "icon": "\ud83d\udc51",
+      "description": "Groups synthesize revelations, forging a legacy presentation radiating status, pride, and historic contribution\u2014serotonin at molecular scale.",
+      "neuro_triggers": [
+        "Serotonin: Pride/Achievement",
+        "Dopamine: Completion"
+      ],
+      "action_steps": [
+        "Organize discoveries into compelling narrative",
+        "Create visual or verbal presentation format",
+        "Prepare to share cultural insights with conviction"
+      ],
+      "psychological_goal": "Amplify sense of mastery, contribution, and significance"
+    },
+    {
+      "id": 5,
+      "name": "THE GRAND CONVENE",
+      "alt_name": "Class Discussion",
+      "duration": "5-10 min",
+      "icon": "\ud83d\udcac",
+      "description": "A convocation of minds: engage, debate, and inscribe new meaning to currency as the ultimate tool of silent cultural transmission.",
+      "neuro_triggers": [
+        "Oxytocin: Social Connection",
+        "Serotonin: Recognition"
+      ],
+      "action_steps": [
+        "Each team presents their findings with passion",
+        "Class discusses currency as cultural communication",
+        "Collective insights are synthesized and celebrated"
+      ],
+      "psychological_goal": "Foster belonging, recognition, and shared wisdom"
+    }
+  ],
+  "materials": [
+    {
+      "item": "Time Commitment",
+      "detail": "30-90 minutes of obsession-fueled investigation",
+      "icon": "\u23f1\ufe0f"
+    },
+    {
+      "item": "Currencies",
+      "detail": "Genuine or ultra-high-fidelity images of global currencies",
+      "icon": "\ud83d\udcb5"
+    },
+    {
+      "item": "Clue Cards",
+      "detail": "Encrypted clue cards (digital or analog)",
+      "icon": "\ud83d\uddc2\ufe0f"
+    },
+    {
+      "item": "Research Access",
+      "detail": "Digital research sanctum (robust internet)",
+      "icon": "\ud83c\udf10"
+    },
+    {
+      "item": "Capture Tools",
+      "detail": "Mind-capturing devices: pen, paper, or digital notepad",
+      "icon": "\u270d\ufe0f"
+    }
+  ],
+  "core_pedagogy": {
+    "learning_objectives": [
+      "Ignite curiosity about world cultures using tangible artifacts",
+      "Foster critical thinking through symbol decoding and research",
+      "Strengthen collaboration and communication through team dynamics",
+      "Develop appreciation for global diversity and cultural expression"
+    ],
+    "neuroscience_foundation": [
+      "Dopamine release through discovery, anticipation, and completion",
+      "Serotonin elevation via status, pride, and achievement recognition",
+      "Oxytocin bonding through teamwork and shared accomplishment",
+      "Flow state activation via optimal challenge-skill balance"
+    ]
+  },
+  "design_principles": {
+    "unbridled_passion": "Immediate, consuming affinity for cultural exploration",
+    "profound_exaltation": "Feeling of superiority through knowledge acquisition",
+    "absolute_enthrallment": "Psychologically captive through layered discovery",
+    "limitless_inspiration": "Catalyst for personal and intellectual revolution"
+  }
+}
