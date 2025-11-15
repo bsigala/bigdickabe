@@ -1,1176 +1,1058 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CURRENCY CLUES: Unlock Global Identity</title>
-    <style>
-        /* DESIGN SYSTEM FOUNDATION */
-        :root {
-            --color-bg-primary: #0a0e27;
-            --color-bg-secondary: #1a1d2e;
-            --color-bg-card: rgba(26, 29, 46, 0.8);
-            --color-accent-cyan: #00d9ff;
-            --color-accent-gold: #ffc107;
-            --color-success: #10b981;
-            --color-text-primary: #ffffff;
-            --color-text-secondary: #b8c5d6;
-            --color-border-glow: rgba(0, 217, 255, 0.5);
-            --font-primary: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            --transition-smooth: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            --shadow-glow: 0 0 30px rgba(0, 217, 255, 0.4);
-            --shadow-lift: 0 20px 60px rgba(0, 0, 0, 0.4);
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: var(--font-primary);
-            background: linear-gradient(135deg, var(--color-bg-primary) 0%, var(--color-bg-secondary) 100%);
-            color: var(--color-text-primary);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* HERO SECTION */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 2rem;
-            position: relative;
-            overflow: hidden;
-            background: linear-gradient(135deg, #0a0e27 0%, #1a1d2e 50%, #0f1c3a 100%);
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: radial-gradient(circle at 50% 50%, rgba(0, 217, 255, 0.1) 0%, transparent 70%);
-            animation: pulseBackground 8s ease-in-out infinite;
-        }
-
-        @keyframes pulseBackground {
-            0%, 100% { opacity: 0.3; transform: scale(1); }
-            50% { opacity: 0.6; transform: scale(1.1); }
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            max-width: 1200px;
-        }
-
-        .hero-title {
-            font-size: clamp(2.5rem, 8vw, 4.5rem);
-            font-weight: 900;
-            letter-spacing: -0.02em;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(90deg, var(--color-accent-cyan), var(--color-accent-gold), var(--color-accent-cyan));
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: glitchTitle 4s ease-in-out infinite, gradientShift 3s ease infinite;
-            text-shadow: 0 0 40px rgba(0, 217, 255, 0.5);
-        }
-
-        @keyframes glitchTitle {
-            0%, 90%, 100% { transform: translate(0); }
-            91% { transform: translate(-2px, 2px); }
-            92% { transform: translate(2px, -2px); }
-            93% { transform: translate(-2px, 2px); }
-            94% { transform: translate(2px, -2px); }
-        }
-
-        @keyframes gradientShift {
-            0%, 100% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-        }
-
-        .hero-subtitle {
-            font-size: clamp(1.1rem, 3vw, 1.5rem);
-            color: var(--color-text-secondary);
-            margin-bottom: 3rem;
-            font-weight: 300;
-            letter-spacing: 0.02em;
-        }
-
-        .cta-button {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 1.5rem 3rem;
-            font-size: 1.25rem;
-            font-weight: 700;
-            color: var(--color-bg-primary);
-            background: var(--color-accent-cyan);
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: var(--transition-smooth);
-            box-shadow: 0 10px 40px rgba(0, 217, 255, 0.4);
-            animation: pulseButton 2s ease-in-out infinite;
-            text-decoration: none;
-            letter-spacing: 0.05em;
-        }
-
-        @keyframes pulseButton {
-            0%, 100% { transform: scale(1); box-shadow: 0 10px 40px rgba(0, 217, 255, 0.4); }
-            50% { transform: scale(1.05); box-shadow: 0 15px 60px rgba(0, 217, 255, 0.6); }
-        }
-
-        .cta-button:hover {
-            transform: scale(1.1) translateY(-3px);
-            box-shadow: var(--shadow-glow);
-            background: var(--color-accent-gold);
-        }
-
-        .cta-button:active {
-            transform: scale(1.05) translateY(-1px);
-        }
-
-        /* MASTERY STATUS BADGE */
-        .mastery-badge {
-            position: fixed;
-            top: 2rem;
-            right: 2rem;
-            z-index: 1000;
-            background: var(--color-bg-card);
-            backdrop-filter: blur(10px);
-            padding: 1rem 1.5rem;
-            border-radius: 50px;
-            border: 2px solid var(--color-accent-gold);
-            box-shadow: 0 10px 30px rgba(255, 193, 7, 0.3);
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            font-weight: 700;
-            font-size: 0.9rem;
-            opacity: 0;
-            animation: fadeInBadge 1s ease 0.5s forwards;
-        }
-
-        @keyframes fadeInBadge {
-            to { opacity: 1; }
-        }
-
-        .mastery-percentage {
-            color: var(--color-accent-gold);
-            font-size: 1.5rem;
-        }
-
-        /* CONTAINER */
-        .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 4rem 2rem;
-        }
-
-        /* VALUE PROPOSITION */
-        .value-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-            margin: 6rem 0;
-        }
-
-        .value-card {
-            background: var(--color-bg-card);
-            backdrop-filter: blur(10px);
-            padding: 2.5rem 2rem;
-            border-radius: 20px;
-            border: 1px solid rgba(0, 217, 255, 0.2);
-            text-align: center;
-            transition: var(--transition-smooth);
-            opacity: 0;
-            transform: translateY(30px);
-        }
-
-        .value-card.visible {
-            animation: fadeInUp 0.6s ease forwards;
-        }
-
-        .value-card:nth-child(2).visible {
-            animation-delay: 0.2s;
-        }
-
-        .value-card:nth-child(3).visible {
-            animation-delay: 0.4s;
-        }
-
-        @keyframes fadeInUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .value-card:hover {
-            transform: translateY(-10px);
-            box-shadow: var(--shadow-lift);
-            border-color: var(--color-accent-cyan);
-        }
-
-        .value-icon {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            filter: drop-shadow(0 0 20px rgba(0, 217, 255, 0.6));
-        }
-
-        .value-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            color: var(--color-accent-cyan);
-        }
-
-        .value-description {
-            color: var(--color-text-secondary);
-            line-height: 1.6;
-        }
-
-        /* PROGRESS TRACKER */
-        .progress-section {
-            margin: 6rem 0;
-            text-align: center;
-        }
-
-        .section-title {
-            font-size: clamp(2rem, 5vw, 3rem);
-            font-weight: 900;
-            margin-bottom: 1rem;
-            background: linear-gradient(90deg, var(--color-accent-cyan), var(--color-accent-gold));
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .progress-container {
-            max-width: 900px;
-            margin: 3rem auto;
-            background: var(--color-bg-card);
-            backdrop-filter: blur(10px);
-            padding: 2rem;
-            border-radius: 20px;
-            border: 1px solid rgba(0, 217, 255, 0.3);
-        }
-
-        .progress-bar-wrapper {
-            position: relative;
-            height: 8px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            overflow: hidden;
-            margin: 2rem 0;
-        }
-
-        .progress-bar {
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, var(--color-accent-cyan), var(--color-success));
-            border-radius: 10px;
-            transition: width 1s ease;
-            box-shadow: 0 0 20px rgba(0, 217, 255, 0.6);
-        }
-
-        .progress-segments {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 1.5rem;
-        }
-
-        .progress-segment {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.5rem;
-            opacity: 0.5;
-            transition: var(--transition-smooth);
-        }
-
-        .progress-segment.active {
-            opacity: 1;
-        }
-
-        .progress-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            background: var(--color-bg-secondary);
-            border: 2px solid rgba(255, 255, 255, 0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-            transition: var(--transition-smooth);
-        }
-
-        .progress-segment.active .progress-icon {
-            border-color: var(--color-accent-cyan);
-            background: rgba(0, 217, 255, 0.2);
-            box-shadow: 0 0 20px rgba(0, 217, 255, 0.6);
-            animation: glowPulse 2s ease-in-out infinite;
-        }
-
-        @keyframes glowPulse {
-            0%, 100% { box-shadow: 0 0 20px rgba(0, 217, 255, 0.6); }
-            50% { box-shadow: 0 0 30px rgba(0, 217, 255, 0.9); }
-        }
-
-        .progress-number {
-            font-size: 0.8rem;
-            font-weight: 700;
-            color: var(--color-text-secondary);
-        }
-
-        .progress-segment.active .progress-number {
-            color: var(--color-accent-cyan);
-        }
-
-        .progress-percentage {
-            font-size: 2rem;
-            font-weight: 900;
-            color: var(--color-accent-gold);
-            margin-top: 1rem;
-        }
-
-        /* PHASE CARDS */
-        .phases-section {
-            margin: 6rem 0;
-        }
-
-        .phase-card {
-            background: var(--color-bg-card);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(0, 217, 255, 0.3);
-            border-radius: 20px;
-            padding: 2.5rem;
-            margin: 3rem 0;
-            transition: var(--transition-smooth);
-            cursor: pointer;
-            opacity: 0;
-            transform: translateY(30px);
-        }
-
-        .phase-card.visible {
-            animation: fadeInUp 0.6s ease forwards;
-        }
-
-        .phase-card:hover {
-            transform: translateY(-10px);
-            box-shadow: var(--shadow-lift);
-            border-color: var(--color-accent-cyan);
-        }
-
-        .phase-card.active {
-            border-color: var(--color-accent-gold);
-            box-shadow: 0 0 40px rgba(255, 193, 7, 0.3);
-        }
-
-        .phase-header {
-            display: flex;
-            align-items: center;
-            gap: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .phase-icon {
-            font-size: 3rem;
-            filter: drop-shadow(0 0 15px rgba(0, 217, 255, 0.6));
-        }
-
-        .phase-title-group {
-            flex: 1;
-        }
-
-        .phase-name {
-            font-size: 1.8rem;
-            font-weight: 900;
-            color: var(--color-accent-cyan);
-            margin-bottom: 0.25rem;
-        }
-
-        .phase-alt-name {
-            font-size: 1rem;
-            color: var(--color-text-secondary);
-            font-style: italic;
-        }
-
-        .phase-duration {
-            background: rgba(0, 217, 255, 0.2);
-            color: var(--color-accent-cyan);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-weight: 700;
-            font-size: 0.85rem;
-            white-space: nowrap;
-        }
-
-        .phase-description {
-            color: var(--color-text-secondary);
-            font-size: 1.1rem;
-            line-height: 1.8;
-            margin-bottom: 1.5rem;
-        }
-
-        .neuro-triggers {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 0.75rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .neuro-tag {
-            background: linear-gradient(135deg, rgba(255, 193, 7, 0.2), rgba(0, 217, 255, 0.2));
-            color: var(--color-accent-gold);
-            padding: 0.5rem 1rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-            border: 1px solid rgba(255, 193, 7, 0.3);
-        }
-
-        .action-steps {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.5s ease;
-        }
-
-        .phase-card.expanded .action-steps {
-            max-height: 500px;
-        }
-
-        .action-steps-title {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--color-accent-cyan);
-            margin: 1.5rem 0 1rem;
-        }
-
-        .action-steps-list {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .action-steps-list li {
-            padding: 0.75rem 0 0.75rem 2rem;
-            position: relative;
-            color: var(--color-text-secondary);
-            line-height: 1.6;
-        }
-
-        .action-steps-list li::before {
-            content: '▶';
-            position: absolute;
-            left: 0;
-            color: var(--color-accent-cyan);
-        }
-
-        .psychological-goal {
-            margin-top: 1.5rem;
-            padding: 1rem;
-            background: rgba(16, 185, 129, 0.1);
-            border-left: 4px solid var(--color-success);
-            border-radius: 8px;
-            font-style: italic;
-            color: var(--color-success);
-        }
-
-        .expand-indicator {
-            text-align: center;
-            margin-top: 1rem;
-            color: var(--color-text-secondary);
-            font-size: 0.9rem;
-            font-weight: 600;
-        }
-
-        .phase-card:not(.expanded) .expand-indicator::after {
-            content: ' ▼ Click to Expand';
-        }
-
-        .phase-card.expanded .expand-indicator::after {
-            content: ' ▲ Click to Collapse';
-        }
-
-        /* MATERIALS SECTION */
-        .materials-section {
-            margin: 6rem 0;
-        }
-
-        .materials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .material-card {
-            background: var(--color-bg-card);
-            backdrop-filter: blur(10px);
-            padding: 2rem;
-            border-radius: 15px;
-            border: 1px solid rgba(0, 217, 255, 0.2);
-            transition: var(--transition-smooth);
-            text-align: center;
-        }
-
-        .material-card:hover {
-            transform: translateY(-8px);
-            border-color: var(--color-accent-gold);
-            box-shadow: 0 15px 40px rgba(255, 193, 7, 0.3);
-        }
-
-        .material-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .material-item {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--color-accent-cyan);
-            margin-bottom: 0.5rem;
-        }
-
-        .material-detail {
-            color: var(--color-text-secondary);
-            font-size: 0.95rem;
-        }
-
-        /* LEARNING OBJECTIVES */
-        .objectives-section {
-            margin: 6rem 0;
-        }
-
-        .objectives-box {
-            background: linear-gradient(135deg, rgba(0, 217, 255, 0.1), rgba(255, 193, 7, 0.1));
-            backdrop-filter: blur(10px);
-            padding: 3rem;
-            border-radius: 20px;
-            border: 1px solid rgba(0, 217, 255, 0.3);
-            margin-top: 2rem;
-        }
-
-        .objectives-list {
-            list-style: none;
-            padding: 0;
-        }
-
-        .objectives-list li {
-            padding: 1rem 0 1rem 3rem;
-            position: relative;
-            font-size: 1.1rem;
-            color: var(--color-text-primary);
-            line-height: 1.8;
-            opacity: 0;
-            transform: translateX(-20px);
-        }
-
-        .objectives-list li.visible {
-            animation: slideInLeft 0.5s ease forwards;
-        }
-
-        .objectives-list li:nth-child(2).visible { animation-delay: 0.1s; }
-        .objectives-list li:nth-child(3).visible { animation-delay: 0.2s; }
-        .objectives-list li:nth-child(4).visible { animation-delay: 0.3s; }
-
-        @keyframes slideInLeft {
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        .objectives-list li::before {
-            content: '✦';
-            position: absolute;
-            left: 0;
-            color: var(--color-accent-gold);
-            font-size: 1.5rem;
-        }
-
-        /* NEUROSCIENCE FOUNDATION */
-        .neuroscience-section {
-            margin: 6rem 0;
-        }
-
-        .neuroscience-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
-        }
-
-        .neuro-card {
-            background: var(--color-bg-card);
-            backdrop-filter: blur(10px);
-            padding: 2rem;
-            border-radius: 15px;
-            border: 1px solid rgba(0, 217, 255, 0.2);
-            transition: var(--transition-smooth);
-            text-align: center;
-        }
-
-        .neuro-card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-lift);
-            border-color: var(--color-accent-cyan);
-        }
-
-        .neuro-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .neuro-name {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--color-accent-gold);
-            margin-bottom: 0.75rem;
-        }
-
-        .neuro-role {
-            color: var(--color-text-secondary);
-            line-height: 1.6;
-        }
-
-        /* CREATOR CONTACT */
-        .contact-section {
-            margin: 6rem 0 4rem;
-        }
-
-        .contact-card {
-            background: var(--color-bg-card);
-            backdrop-filter: blur(10px);
-            padding: 3rem;
-            border-radius: 20px;
-            border: 1px solid rgba(0, 217, 255, 0.3);
-            max-width: 600px;
-            margin: 2rem auto;
-            text-align: center;
-            transition: var(--transition-smooth);
-        }
-
-        .contact-card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--shadow-lift);
-            border-color: var(--color-accent-gold);
-        }
-
-        .contact-title {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--color-accent-cyan);
-            margin-bottom: 1.5rem;
-        }
-
-        .contact-name {
-            font-size: 2rem;
-            font-weight: 900;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(90deg, var(--color-accent-cyan), var(--color-accent-gold));
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-
-        .contact-info {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .contact-item {
-            color: var(--color-text-secondary);
-            font-size: 1.1rem;
-            transition: var(--transition-smooth);
-        }
-
-        .contact-item a {
-            color: var(--color-accent-cyan);
-            text-decoration: none;
-            transition: var(--transition-smooth);
-        }
-
-        .contact-item a:hover {
-            color: var(--color-accent-gold);
-        }
-
-        /* RESPONSIVE DESIGN */
-        @media (max-width: 768px) {
-            .mastery-badge {
-                top: 1rem;
-                right: 1rem;
-                padding: 0.75rem 1rem;
-                font-size: 0.8rem;
-            }
-
-            .mastery-percentage {
-                font-size: 1.2rem;
-            }
-
-            .hero {
-                padding: 1.5rem;
-            }
-
-            .container {
-                padding: 2rem 1.5rem;
-            }
-
-            .phase-header {
-                flex-direction: column;
-                text-align: center;
-            }
-
-            .phase-duration {
-                align-self: center;
-            }
-
-            .progress-segments {
-                flex-wrap: wrap;
-                gap: 1rem;
-            }
-
-            .cta-button {
-                padding: 1rem 2rem;
-                font-size: 1rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .value-grid,
-            .materials-grid,
-            .neuroscience-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        /* SCROLL REVEAL UTILITIES */
-        .fade-in {
-            opacity: 0;
-            transform: translateY(30px);
-        }
-
-        .fade-in.visible {
-            animation: fadeInUp 0.6s ease forwards;
-        }
-    </style>
+<html lang="en"><head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Zenith Protocol – Ultimate Edition</title>
+  <!--
+    The Ultimate Edition elevates the Zenith experience with additional
+    interactive features: a dynamic star field background, animated
+    counters, a self‑check quiz, sticky call‑to‑action and scroll top
+    buttons. All assets are self‑contained to maintain offline
+    functionality while respecting accessibility and usability.
+  -->
+  <style>
+    /* Theme variables for dark and light modes */
+    :root {
+      --bg: #020617;
+      --surface: #0f172a;
+      --primary: #06b6d4;
+      --secondary: #eab308;
+      --magenta: #a855f7;
+      --light: #e2e8f0;
+      --muted: #64748b;
+      --bg-light: #f9fafb;
+      --surface-light: #ffffff;
+      --text-dark: #1e293b;
+      --text-muted-dark: #475569;
+    }
+    .light-mode {
+      --bg: var(--bg-light);
+      --surface: var(--surface-light);
+      --light: var(--text-dark);
+      --muted: var(--text-muted-dark);
+    }
+
+    /* Global resets */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: sans-serif;
+      background: var(--bg);
+      color: var(--light);
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+    a { color: var(--primary); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    h1,h2,h3,h4 { font-weight: 600; }
+
+    /* Scroll progress bar */
+    #scroll-progress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 4px;
+      width: 0;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      z-index: 999;
+    }
+
+    /* Header */
+    header {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      z-index: 50;
+      backdrop-filter: blur(8px);
+      background: rgba(2,6,23,0.8);
+      border-bottom: 1px solid rgba(6,182,212,0.2);
+      transition: background 0.3s;
+    }
+    .light-mode header {
+      background: rgba(249,250,251,0.8);
+      border-bottom-color: rgba(10,162,200,0.2);
+    }
+    .nav-container {
+      max-width: 1200px;
+      margin: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.5rem;
+    }
+    .brand {
+      font-size: 1.3rem;
+      letter-spacing: 1px;
+      color: var(--primary);
+      font-weight: 700;
+    }
+    nav ul {
+      list-style: none;
+      display: flex;
+      gap: 1.2rem;
+    }
+    nav a {
+      color: var(--light);
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+    nav a:hover { color: var(--secondary); }
+    .theme-toggle {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      padding: 0.4rem;
+      border-radius: 50%;
+      border: 2px solid var(--primary);
+      transition: background 0.3s;
+    }
+    .theme-toggle:hover { background: var(--surface); }
+    .theme-toggle span {
+      display: block;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--primary);
+    }
+    .light-mode .theme-toggle span { background: var(--secondary); }
+
+    /* Hero with star field and orbits */
+    .hero {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      padding-top: 4rem;
+      text-align: center;
+      overflow: hidden;
+    }
+    /* Star field canvas covers hero */
+    #stars {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background: url('assets/hero.png') center/cover no-repeat;
+      opacity: 0.12;
+      filter: grayscale(0.5);
+      z-index: 1;
+    }
+    /* Orbits overlay the canvas */
+    .orbit {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      border-radius: 50%;
+      border: 1.5px dashed var(--primary);
+      opacity: 0.25;
+      animation: spin 40s linear infinite;
+      pointer-events: none;
+    }
+    .orbit:nth-child(1) { width: 320px; height: 320px; margin:-160px 0 0 -160px; animation-duration: 28s; }
+    .orbit:nth-child(2) { width: 520px; height: 520px; margin:-260px 0 0 -260px; border-color: var(--secondary); animation-duration: 36s; }
+    .orbit:nth-child(3) { width: 720px; height: 720px; margin:-360px 0 0 -360px; border-color: var(--magenta); animation-duration: 44s; }
+    @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 800px;
+      padding: 0 1rem;
+    }
+    .hero .tagline {
+      letter-spacing: 0.3em;
+      font-size: 0.85rem;
+      color: var(--secondary);
+      text-transform: uppercase;
+      margin-bottom: 1rem;
+    }
+    .glitch {
+      font-size: 3.5rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      position: relative;
+      display: inline-block;
+      margin-bottom: 1.5rem;
+    }
+    .glitch::before, .glitch::after {
+      content: attr(data-text);
+      position: absolute;
+      left: 0;
+      top: 0;
+      width: 100%;
+      overflow: hidden;
+    }
+    .glitch::before {
+      left: 2px;
+      text-shadow: -2px 0 var(--magenta);
+      clip-path: polygon(0 2%, 100% 2%, 100% 40%, 0 40%);
+      animation: glitchTop 3s infinite linear alternate-reverse;
+    }
+    .glitch::after {
+      left: -2px;
+      text-shadow: -2px 0 var(--primary);
+      clip-path: polygon(0 60%, 100% 60%, 100% 100%, 0 100%);
+      animation: glitchBottom 2.5s infinite linear alternate-reverse;
+    }
+    @keyframes glitchTop {
+      0% { transform: translate(0,0); }
+      20% { transform: translate(-3px,-2px); }
+      40% { transform: translate(3px,2px); }
+      60% { transform: translate(-3px,2px); }
+      80% { transform: translate(3px,-2px); }
+      100% { transform: translate(0,0); }
+    }
+    @keyframes glitchBottom {
+      0% { transform: translate(0,0); }
+      20% { transform: translate(3px,2px); }
+      40% { transform: translate(-3px,-2px); }
+      60% { transform: translate(3px,-2px); }
+      80% { transform: translate(-3px,2px); }
+      100% { transform: translate(0,0); }
+    }
+    .hero p {
+      font-size: 1.1rem;
+      margin: 0 auto 2rem;
+      max-width: 600px;
+      color: var(--muted);
+    }
+    .cta {
+      position: relative;
+      display: inline-block;
+      padding: 0.9rem 2rem;
+      border-radius: 50px;
+      background: linear-gradient(90deg, var(--primary), var(--magenta));
+      color: var(--bg);
+      font-weight: 700;
+      overflow: hidden;
+      transition: transform 0.3s;
+    }
+    .cta:hover { transform: translateY(-3px) scale(1.05); }
+    .cta span.ripple {
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 200%;
+      height: 100%;
+      background: radial-gradient(circle at 50% 50%, rgba(255,255,255,0.4), transparent 70%);
+      animation: ripple 2.5s infinite;
+    }
+    @keyframes ripple { from { transform: translateX(0); } to { transform: translateX(50%); } }
+
+    /* Section styling */
+    section {
+      padding: 4rem 1rem;
+      position: relative;
+    }
+    .section-header {
+      font-size: 2rem;
+      text-align: center;
+      margin-bottom: 2rem;
+      position: relative;
+    }
+    .section-header::after {
+      content: '';
+      width: 90px;
+      height: 3px;
+      background: var(--secondary);
+      display: block;
+      margin: 0.6rem auto 0;
+    }
+
+    /* Console section */
+    #console-wrapper {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    #console {
+      background: var(--surface);
+      border: 2px solid var(--primary);
+      border-radius: 8px;
+      padding: 1rem;
+      font-family: monospace;
+      font-size: 0.85rem;
+      height: 200px;
+      overflow-y: auto;
+      margin-bottom: 1rem;
+    }
+    #console p { margin-bottom: 0.3rem; }
+    #console .user { color: var(--secondary); }
+    #console .system { color: var(--primary); }
+    #input-bar {
+      display: flex;
+      align-items: center;
+      background: var(--surface);
+      border: 2px solid var(--primary);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    #input-bar input {
+      flex: 1;
+      background: transparent;
+      border: none;
+      padding: 0.8rem;
+      color: var(--light);
+      font-family: monospace;
+    }
+    #input-bar button {
+      background: var(--primary);
+      border: none;
+      padding: 0.8rem 1rem;
+      color: var(--bg);
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    #input-bar button:hover { background: var(--secondary); }
+    .mastery-container {
+      background: var(--surface);
+      border: 2px solid var(--magenta);
+      border-radius: 8px;
+      height: 20px;
+      width: 100%;
+      margin-top: 1rem;
+      overflow: hidden;
+    }
+    .mastery-bar {
+      height: 100%;
+      width: 0;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      transition: width 0.4s ease;
+    }
+
+    /* Steps grid */
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
+      gap: 2rem;
+    }
+    .step {
+      background: var(--surface);
+      border-radius: 10px;
+      padding: 1.5rem;
+      border: 1px solid rgba(255,255,255,0.08);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s ease, transform 0.6s ease;
+    }
+    .step.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .step h3 {
+      font-size: 1.3rem;
+      margin-bottom: 0.5rem;
+      color: var(--primary);
+    }
+    .step p {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    /* Stats section */
+    .stats {
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px,1fr));
+      gap: 2rem;
+      text-align: center;
+    }
+    .stat {
+      background: var(--surface);
+      border-radius: 10px;
+      padding: 1.5rem;
+      border: 1px solid rgba(255,255,255,0.08);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s, transform 0.6s;
+    }
+    .stat.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--secondary);
+      margin-bottom: 0.5rem;
+    }
+    .stat-label {
+      font-size: 1rem;
+      color: var(--muted);
+    }
+
+    /* Clue cards */
+    .clue-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 2rem;
+      perspective: 800px;
+    }
+    .clue {
+      position: relative;
+      width: 100%;
+      height: 270px;
+      transform-style: preserve-3d;
+      transition: transform 0.8s;
+      cursor: pointer;
+    }
+    .clue:hover { transform: rotateY(180deg); }
+    .clue-face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 12px;
+      backface-visibility: hidden;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 1rem;
+    }
+    .clue-front {
+      background: url('assets/dollars_coins.jpg') center/cover no-repeat;
+      color: var(--light);
+    }
+    .clue-front h4 { margin-bottom: 0.5rem; font-size: 1.1rem; }
+    .clue-front p { font-size: 0.85rem; }
+    .clue-back {
+      background: var(--surface);
+      transform: rotateY(180deg);
+      text-align: center;
+    }
+    .clue-back h4 { margin-bottom: 0.5rem; font-size: 1.1rem; color: var(--secondary); }
+    .clue-back p { font-size: 0.85rem; color: var(--muted); }
+
+    /* Gallery */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px,1fr));
+      gap: 1.5rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+    .gallery-item {
+      position: relative;
+      overflow: hidden;
+      border-radius: 12px;
+      cursor: pointer;
+    }
+    .gallery-item img {
+      width: 100%;
+      height: auto;
+      display: block;
+      transition: transform 0.5s;
+    }
+    .gallery-item:hover img { transform: scale(1.1); }
+    .lightbox {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.8);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      cursor: pointer;
+    }
+    .lightbox img {
+      max-width: 90%;
+      max-height: 90%;
+      border-radius: 12px;
+    }
+
+    /* Testimonials */
+    .testimonials {
+      max-width: 900px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px,1fr));
+      gap: 2rem;
+    }
+    .testimonial {
+      background: var(--surface);
+      border-radius: 10px;
+      padding: 1.5rem;
+      box-shadow: 0 5px 10px rgba(0,0,0,0.3);
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.6s, transform 0.6s;
+    }
+    .testimonial.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .testimonial p { font-size: 0.9rem; color: var(--muted); margin-bottom: 0.8rem; }
+    .testimonial .author { font-weight: 600; color: var(--primary); }
+
+    /* FAQ */
+    .faq {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+    .faq-item {
+      margin-bottom: 1.2rem;
+    }
+    .faq-item h4 {
+      font-size: 1.1rem;
+      margin-bottom: 0.3rem;
+      color: var(--primary);
+    }
+    .faq-item p { font-size: 0.9rem; color: var(--muted); }
+
+    /* Quiz */
+    .quiz {
+      max-width: 700px;
+      margin: 0 auto;
+      background: var(--surface);
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
+    .quiz h3 { margin-bottom: 1rem; color: var(--primary); }
+    .quiz-options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+    .quiz-options button {
+      background: var(--surface);
+      color: var(--light);
+      border: 2px solid var(--primary);
+      border-radius: 8px;
+      padding: 0.6rem 1rem;
+      cursor: pointer;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .quiz-options button:hover {
+      background: var(--primary);
+      border-color: var(--secondary);
+      color: var(--bg);
+    }
+    .quiz-feedback {
+      margin-top: 1rem;
+      font-size: 0.95rem;
+      color: var(--secondary);
+    }
+
+    /* Resources */
+    .resources ul { list-style: none; max-width: 800px; margin: 0 auto; padding-left: 0; }
+    .resources li { margin-bottom: 0.8rem; position: relative; padding-left: 1.6rem; }
+    .resources li::before {
+      content: '\25cf';
+      position: absolute;
+      left: 0;
+      top: 0.4rem;
+      font-size: 0.6rem;
+      color: var(--primary);
+    }
+
+    /* Footer */
+    footer {
+      background: #0a0e23;
+      color: var(--muted);
+      font-size: 0.8rem;
+      padding: 2rem 1rem;
+      border-top: 1px solid rgba(255,255,255,0.1);
+    }
+    footer ol { margin-left: 1.4rem; }
+    footer li { margin-bottom: 0.4rem; }
+    footer a { color: var(--secondary); }
+
+    /* Sticky call to action */
+    .sticky-cta {
+      position: fixed;
+      right: 1rem;
+      bottom: 4rem;
+      z-index: 99;
+      display: none;
+    }
+    .sticky-cta button {
+      background: var(--primary);
+      color: var(--bg);
+      border: none;
+      padding: 0.8rem 1.2rem;
+      border-radius: 30px;
+      font-weight: 700;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      cursor: pointer;
+      transition: background 0.3s, transform 0.3s;
+    }
+    .sticky-cta button:hover {
+      background: var(--secondary);
+      transform: translateY(-3px);
+    }
+
+    /* Scroll to top button */
+    .scroll-top {
+      position: fixed;
+      right: 1rem;
+      bottom: 1rem;
+      z-index: 99;
+      background: var(--primary);
+      color: var(--bg);
+      border: none;
+      padding: 0.6rem;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+      transition: background 0.3s;
+    }
+    .scroll-top:hover { background: var(--secondary); }
+  </style>
 </head>
 <body>
-    <!-- MASTERY STATUS BADGE -->
-    <div class="mastery-badge">
-        <span class="mastery-percentage" id="masteryPercent">0%</span>
-        <span>MASTERY ACHIEVED</span>
+  <div id="scroll-progress"></div>
+  <!-- Header -->
+  <header>
+    <div class="nav-container">
+      <div class="brand">Zenith&nbsp;Protocol</div>
+      <nav>
+        <ul>
+          <li><a href="#console-section">Console</a></li>
+          <li><a href="#steps-section">Steps</a></li>
+          <li><a href="#stats-section">Stats</a></li>
+          <li><a href="#clue-section">Clues</a></li>
+          <li><a href="#gallery-section">Gallery</a></li>
+          <li><a href="#resources-section">Resources</a></li>
+        </ul>
+      </nav>
+      <div class="theme-toggle" id="theme-toggle" title="Toggle light/dark mode">
+        <span></span>
+      </div>
     </div>
+  </header>
 
-    <!-- HERO SECTION -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1 class="hero-title">CURRENCY CLUES:<br>Unlock Global Identity</h1>
-            <p class="hero-subtitle">The World's Stories Are Printed on Money. Can You Decode Them?</p>
-            <a href="#mission-briefing" class="cta-button">
-                🚀 START THE MISSION
-            </a>
+  <!-- Hero -->
+  <section class="hero" id="top">
+    <canvas id="stars" width="168" height="697"></canvas>
+    <div class="orbit"></div>
+    <div class="orbit"></div>
+    <div class="orbit"></div>
+    <div class="hero-content">
+      <div class="tagline">Embark on a journey</div>
+      <h1 class="glitch" data-text="Zenith">Zenith</h1>
+      <p>Decode the cultural stories etched into the world’s currencies. Challenge yourself to see the unseen, and let curiosity guide your path to mastery.</p>
+      <a href="#console-section" class="cta">
+        <span class="ripple"></span>
+        Begin Decoding
+      </a>
+    </div>
+  </section>
+
+  <!-- Console Section -->
+  <section id="console-section">
+    <h2 class="section-header">Quantum Mastery Console</h2>
+    <div id="console-wrapper">
+      <div id="console">
+        <p class="system">&gt;&gt;&gt; System online.</p>
+        <p class="system">&gt;&gt;&gt; Awaiting your query…</p>
+      </div>
+      <div id="input-bar">
+        <input type="text" id="console-input" placeholder="Type a country or keyword" autocomplete="off">
+        <button id="console-send">Send</button>
+      </div>
+      <div class="mastery-container"><div class="mastery-bar" id="mastery-bar"></div></div>
+    </div>
+  </section>
+
+  <!-- Steps Section -->
+  <section id="steps-section">
+    <h2 class="section-header">Operational Steps</h2>
+    <div class="steps-grid">
+      <div class="step">
+        <h3>1. Introduction &amp; Setup</h3>
+        <p>Explain how currency reflects a country’s culture and history. Form groups of 3–5 participants and distribute diverse currencies【288058567004967†L39-L47】.</p>
+      </div>
+      <div class="step">
+        <h3>2. Distribute Clues</h3>
+        <p>Provide each team with foreign currencies and attached clues to help them identify the origin【288058567004967†L48-L66】.</p>
+      </div>
+      <div class="step">
+        <h3>3. Investigate &amp; Analyze</h3>
+        <p>Identify the country, examine the symbolism and history, and interpret how the design communicates identity【288058567004967†L69-L76】.</p>
+      </div>
+      <div class="step">
+        <h3>4. Present Findings</h3>
+        <p>Share your discoveries with the class: reveal the country, explain the symbols, and discuss the cultural messages【288058567004967†L81-L87】.</p>
+      </div>
+      <div class="step">
+        <h3>5. Reflect &amp; Discuss</h3>
+        <p>Reflect on themes and discuss how currency serves as a tool for intercultural communication【288058567004967†L89-L93】.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section -->
+  <section id="stats-section">
+    <h2 class="section-header">Challenge Statistics</h2>
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-number" data-count="4">0</div>
+        <div class="stat-label">Countries to decode</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number" data-count="5">0</div>
+        <div class="stat-label">Steps to mastery</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number" data-count="100">0</div>
+        <div class="stat-label">Percent engagement</div>
+      </div>
+      <div class="stat">
+        <div class="stat-number" data-count="60">0</div>
+        <div class="stat-label">Minutes of discovery</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Clue Cards Section -->
+  <section id="clue-section">
+    <h2 class="section-header">Interactive Clues</h2>
+    <p style="text-align:center; max-width:700px; margin:0 auto 2rem; color:var(--muted);">Hover over each card to decipher which country the clue belongs to. Click or hover to reveal the answer and deepen your cultural mastery.</p>
+    <div class="clue-grid">
+      <!-- Mexico -->
+      <div class="clue">
+        <div class="clue-face clue-front">
+          <h4>Clue&nbsp;#1</h4>
+          <p>This currency features a monument that symbolizes freedom and the nation’s fight for independence—the figure is affectionately called the “angel” of freedom【288058567004967†L56-L58】.</p>
         </div>
-    </section>
-
-    <!-- VALUE PROPOSITION -->
-    <section class="container">
-        <div class="value-grid">
-            <div class="value-card fade-in">
-                <div class="value-icon">🌍</div>
-                <h3 class="value-title">Become a Global Investigator</h3>
-                <p class="value-description">Decode ancient symbols and cultural artifacts hidden in plain sight on international currencies.</p>
-            </div>
-            <div class="value-card fade-in">
-                <div class="value-icon">🧠</div>
-                <h3 class="value-title">Master Critical Thinking</h3>
-                <p class="value-description">Develop elite-level analytical skills through immersive problem-solving and research mastery.</p>
-            </div>
-            <div class="value-card fade-in">
-                <div class="value-icon">🤝</div>
-                <h3 class="value-title">Forge Strong Teams</h3>
-                <p class="value-description">Build unbreakable bonds through collaborative discovery and shared achievement.</p>
-            </div>
+        <div class="clue-face clue-back">
+          <h4>Mexico</h4>
+          <p>The Angel of Independence stands atop the peso, echoing the country’s triumphant struggle.</p>
         </div>
-    </section>
-
-    <!-- PROGRESS TRACKER -->
-    <section class="container progress-section">
-        <h2 class="section-title">YOUR MASTERY JOURNEY</h2>
-        <div class="progress-container">
-            <div class="progress-bar-wrapper">
-                <div class="progress-bar" id="progressBar"></div>
-            </div>
-            <div class="progress-segments" id="progressSegments">
-                <div class="progress-segment" data-phase="1">
-                    <div class="progress-icon">🎯</div>
-                    <div class="progress-number">PHASE 1</div>
-                </div>
-                <div class="progress-segment" data-phase="2">
-                    <div class="progress-icon">🔐</div>
-                    <div class="progress-number">PHASE 2</div>
-                </div>
-                <div class="progress-segment" data-phase="3">
-                    <div class="progress-icon">🔍</div>
-                    <div class="progress-number">PHASE 3</div>
-                </div>
-                <div class="progress-segment" data-phase="4">
-                    <div class="progress-icon">👑</div>
-                    <div class="progress-number">PHASE 4</div>
-                </div>
-                <div class="progress-segment" data-phase="5">
-                    <div class="progress-icon">💬</div>
-                    <div class="progress-number">PHASE 5</div>
-                </div>
-            </div>
-            <div class="progress-percentage" id="progressPercentage">0% → 100% MASTERY ACHIEVED</div>
+      </div>
+      <!-- Israel -->
+      <div class="clue">
+        <div class="clue-face clue-front">
+          <h4>Clue&nbsp;#2</h4>
+          <p>This currency features the first prime minister, whose visionary leadership shaped the nation, alongside symbols of the journey to independence【288058567004967†L59-L61】.</p>
         </div>
-    </section>
-
-    <!-- THE 5 PHASES -->
-    <section class="container phases-section">
-        <h2 class="section-title">THE 5 PHASES OF TRANSFORMATION</h2>
-
-        <!-- PHASE 1 -->
-        <div class="phase-card fade-in" id="mission-briefing" data-phase="1">
-            <div class="phase-header">
-                <div class="phase-icon">🎯</div>
-                <div class="phase-title-group">
-                    <h3 class="phase-name">MISSION BRIEFING</h3>
-                    <p class="phase-alt-name">Setup &amp; Ascension</p>
-                </div>
-                <div class="phase-duration">⏱️ 5-10 min</div>
-            </div>
-            <p class="phase-description">The Lead Architect delivers a visceral invocation—igniting fevered anticipation and collective conviction for a world-altering cultural odyssey.</p>
-            <div class="neuro-triggers">
-                <span class="neuro-tag">💊 Dopamine: Anticipation</span>
-                <span class="neuro-tag">🤗 Oxytocin: Group Bonding</span>
-            </div>
-            <div class="action-steps">
-                <h4 class="action-steps-title">⚡ Action Steps:</h4>
-                <ul class="action-steps-list">
-                    <li>Instructor unveils the sacred mission and high-stakes objectives</li>
-                    <li>Teams are formed with clear roles and purpose</li>
-                    <li>Expectations are set for discovery and legacy creation</li>
-                </ul>
-                <div class="psychological-goal">
-                    <strong>Psychological Goal:</strong> Establish profound purpose and urgent curiosity
-                </div>
-            </div>
-            <div class="expand-indicator"></div>
+        <div class="clue-face clue-back">
+          <h4>Israel</h4>
+          <p>David&nbsp;Ben‑Gurion appears on the new shekel, paired with imagery of Israel’s founding years.</p>
         </div>
-
-        <!-- PHASE 2 -->
-        <div class="phase-card fade-in" data-phase="2">
-            <div class="phase-header">
-                <div class="phase-icon">🔐</div>
-                <div class="phase-title-group">
-                    <h3 class="phase-name">SECURE THE VAULT</h3>
-                    <p class="phase-alt-name">Currency &amp; Clue Assignment</p>
-                </div>
-                <div class="phase-duration">⏱️ 20-30 min</div>
-            </div>
-            <p class="phase-description">Each syndicate receives 3-5 international currencies with encrypted Clue Cards—espionage meets archaeology, igniting primal engagement.</p>
-            <div class="neuro-triggers">
-                <span class="neuro-tag">💊 Dopamine: Discovery</span>
-                <span class="neuro-tag">🌟 Serotonin: Possession/Status</span>
-            </div>
-            <div class="action-steps">
-                <h4 class="action-steps-title">⚡ Action Steps:</h4>
-                <ul class="action-steps-list">
-                    <li>Teams claim their exclusive currency artifacts</li>
-                    <li>Clue cards are distributed with cryptic details</li>
-                    <li>Initial observations and hypotheses are formed</li>
-                </ul>
-                <div class="psychological-goal">
-                    <strong>Psychological Goal:</strong> Trigger ownership, exclusivity, and investigative drive
-                </div>
-            </div>
-            <div class="expand-indicator"></div>
+      </div>
+      <!-- Palestine -->
+      <div class="clue">
+        <div class="clue-face clue-front">
+          <h4>Clue&nbsp;#3</h4>
+          <p>This 2&nbsp;mil coin is graced by an olive tree—a symbol of peace and endurance deeply rooted in this land【288058567004967†L62-L64】.</p>
         </div>
-
-        <!-- PHASE 3 -->
-        <div class="phase-card fade-in" data-phase="3">
-            <div class="phase-header">
-                <div class="phase-icon">🔍</div>
-                <div class="phase-title-group">
-                    <h3 class="phase-name">THE DECODE</h3>
-                    <p class="phase-alt-name">Research &amp; Identification</p>
-                </div>
-                <div class="phase-duration">⏱️ 15-20 min</div>
-            </div>
-            <p class="phase-description">Through relentless analysis, teams deconstruct hidden codes, connect mythos to nation, and unravel epoch-spanning symbolism.</p>
-            <div class="neuro-triggers">
-                <span class="neuro-tag">💊 Dopamine: Problem-Solving</span>
-                <span class="neuro-tag">🌊 Flow State: Deep Focus</span>
-            </div>
-            <div class="action-steps">
-                <h4 class="action-steps-title">⚡ Action Steps:</h4>
-                <ul class="action-steps-list">
-                    <li>Use clue cards and visual analysis for symbol identification</li>
-                    <li>Conduct digital research to verify origins and meanings</li>
-                    <li>Document findings with precision and creativity</li>
-                </ul>
-                <div class="psychological-goal">
-                    <strong>Psychological Goal:</strong> Achieve flow state through challenge and mastery
-                </div>
-            </div>
-            <div class="expand-indicator"></div>
+        <div class="clue-face clue-back">
+          <h4>Palestine</h4>
+          <p>The olive tree on the mil coin reflects resilience and the quest for harmony.</p>
         </div>
-
-        <!-- PHASE 4 -->
-        <div class="phase-card fade-in" data-phase="4">
-            <div class="phase-header">
-                <div class="phase-icon">👑</div>
-                <div class="phase-title-group">
-                    <h3 class="phase-name">LEGACY FORGING</h3>
-                    <p class="phase-alt-name">Presentation Preparation</p>
-                </div>
-                <div class="phase-duration">⏱️ 5-10 min</div>
-            </div>
-            <p class="phase-description">Groups synthesize revelations, forging a legacy presentation radiating status, pride, and historic contribution—serotonin at molecular scale.</p>
-            <div class="neuro-triggers">
-                <span class="neuro-tag">🌟 Serotonin: Pride/Achievement</span>
-                <span class="neuro-tag">💊 Dopamine: Completion</span>
-            </div>
-            <div class="action-steps">
-                <h4 class="action-steps-title">⚡ Action Steps:</h4>
-                <ul class="action-steps-list">
-                    <li>Organize discoveries into compelling narrative</li>
-                    <li>Create visual or verbal presentation format</li>
-                    <li>Prepare to share cultural insights with conviction</li>
-                </ul>
-                <div class="psychological-goal">
-                    <strong>Psychological Goal:</strong> Amplify sense of mastery, contribution, and significance
-                </div>
-            </div>
-            <div class="expand-indicator"></div>
+      </div>
+      <!-- Canada -->
+      <div class="clue">
+        <div class="clue-face clue-front">
+          <h4>Clue&nbsp;#4</h4>
+          <p>This currency depicts a hardworking native animal that played a vital role in shaping the country’s economy【288058567004967†L65-L66】.</p>
         </div>
-
-        <!-- PHASE 5 -->
-        <div class="phase-card fade-in" data-phase="5">
-            <div class="phase-header">
-                <div class="phase-icon">💬</div>
-                <div class="phase-title-group">
-                    <h3 class="phase-name">THE GRAND CONVENE</h3>
-                    <p class="phase-alt-name">Class Discussion</p>
-                </div>
-                <div class="phase-duration">⏱️ 5-10 min</div>
-            </div>
-            <p class="phase-description">A convocation of minds—engage, debate, and inscribe new meaning to currency as the ultimate tool of silent cultural transmission.</p>
-            <div class="neuro-triggers">
-                <span class="neuro-tag">🤗 Oxytocin: Social Connection</span>
-                <span class="neuro-tag">🌟 Serotonin: Recognition</span>
-            </div>
-            <div class="action-steps">
-                <h4 class="action-steps-title">⚡ Action Steps:</h4>
-                <ul class="action-steps-list">
-                    <li>Each team presents their findings with passion</li>
-                    <li>Class discusses currency as cultural communication</li>
-                    <li>Collective insights are synthesized and celebrated</li>
-                </ul>
-                <div class="psychological-goal">
-                    <strong>Psychological Goal:</strong> Foster belonging, recognition, and shared wisdom
-                </div>
-            </div>
-            <div class="expand-indicator"></div>
+        <div class="clue-face clue-back">
+          <h4>Canada</h4>
+          <p>The Canadian loonie celebrates the industrious loon, emblematic of perseverance and commerce.</p>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
 
-    <!-- MATERIALS & TOOLKIT -->
-    <section class="container materials-section">
-        <h2 class="section-title">YOUR ELITE TOOLKIT</h2>
-        <div class="materials-grid">
-            <div class="material-card fade-in">
-                <div class="material-icon">⏱️</div>
-                <div class="material-item">Time Commitment</div>
-                <div class="material-detail">30-90 minutes of obsession-fueled investigation</div>
-            </div>
-            <div class="material-card fade-in">
-                <div class="material-icon">💵</div>
-                <div class="material-item">Currencies</div>
-                <div class="material-detail">Genuine or ultra-high-fidelity images of global currencies</div>
-            </div>
-            <div class="material-card fade-in">
-                <div class="material-icon">🗂️</div>
-                <div class="material-item">Clue Cards</div>
-                <div class="material-detail">Encrypted clue cards (digital or analog)</div>
-            </div>
-            <div class="material-card fade-in">
-                <div class="material-icon">🌐</div>
-                <div class="material-item">Research Access</div>
-                <div class="material-detail">Digital research sanctum (robust internet)</div>
-            </div>
-            <div class="material-card fade-in">
-                <div class="material-icon">✍️</div>
-                <div class="material-item">Capture Tools</div>
-                <div class="material-detail">Mind-capturing devices—pen, paper, or digital notepad</div>
-            </div>
-        </div>
-    </section>
+  <!-- Gallery Section -->
+  <section id="gallery-section">
+    <h2 class="section-header">Gallery of Banknotes</h2>
+    <p style="text-align:center; max-width:700px; margin:0 auto 2rem; color:var(--muted);">Explore a visual collection of currency imagery. Click an image to view it full size.</p>
+    <div class="gallery-grid">
+      <div class="gallery-item"><img src="assets/hero.png" alt="Abstract currency collage"></div>
+      <div class="gallery-item"><img src="assets/dollars_coins.jpg" alt="Dollar coins and currency"></div>
+      <div class="gallery-item"><img src="assets/students.jpg" alt="Students working together"></div>
+    </div>
+    <div class="lightbox" id="lightbox"><img src="" alt="enlarged"></div>
+  </section>
 
-    <!-- LEARNING OBJECTIVES -->
-    <section class="container objectives-section">
-        <h2 class="section-title">LEARNING OBJECTIVES</h2>
-        <div class="objectives-box">
-            <ul class="objectives-list">
-                <li>Ignite <strong>curiosity</strong> about world cultures using tangible artifacts</li>
-                <li>Foster <strong>critical thinking</strong> through symbol decoding and research</li>
-                <li>Strengthen <strong>collaboration</strong> and communication through team dynamics</li>
-                <li>Develop <strong>appreciation</strong> for global diversity and cultural expression</li>
-            </ul>
-        </div>
-    </section>
+  <!-- Testimonials Section -->
+  <section id="testimonials-section">
+    <h2 class="section-header">Voices of Insight</h2>
+    <div class="testimonials">
+      <div class="testimonial">
+        <p>“This challenge opened my eyes to the stories hidden in the bills I use every day. It’s amazing how culture and history converge in our wallets.”</p>
+        <div class="author">— Aisha&nbsp;K., Participant</div>
+      </div>
+      <div class="testimonial">
+        <p>“Zenith made learning about economics feel like solving a mystery. I’ve never been more excited to research and present my findings.”</p>
+        <div class="author">— Mateo&nbsp;L., Student</div>
+      </div>
+      <div class="testimonial">
+        <p>“Our team’s discussion after the challenge helped us understand different perspectives and appreciate the power of symbolism.”</p>
+        <div class="author">— Priya&nbsp;S., Educator</div>
+      </div>
+    </div>
+  </section>
 
-    <!-- NEUROSCIENCE FOUNDATION -->
-    <section class="container neuroscience-section">
-        <h2 class="section-title">THE NEUROSCIENCE FOUNDATION</h2>
-        <div class="neuroscience-grid">
-            <div class="neuro-card fade-in">
-                <div class="neuro-icon">💊</div>
-                <div class="neuro-name">Dopamine</div>
-                <div class="neuro-role">Discovery, anticipation, problem-solving, and completion</div>
-            </div>
-            <div class="neuro-card fade-in">
-                <div class="neuro-icon">🌟</div>
-                <div class="neuro-name">Serotonin</div>
-                <div class="neuro-role">Status, pride, achievement, and recognition</div>
-            </div>
-            <div class="neuro-card fade-in">
-                <div class="neuro-icon">🤗</div>
-                <div class="neuro-name">Oxytocin</div>
-                <div class="neuro-role">Teamwork, bonding, and shared accomplishment</div>
-            </div>
-            <div class="neuro-card fade-in">
-                <div class="neuro-icon">🌊</div>
-                <div class="neuro-name">Flow State</div>
-                <div class="neuro-role">Optimal challenge-skill balance and deep focus</div>
-            </div>
-        </div>
-    </section>
+  <!-- FAQ Section -->
+  <section id="faq-section">
+    <h2 class="section-header">Frequently Asked Questions</h2>
+    <div class="faq">
+      <div class="faq-item">
+        <h4>What is the goal of the Currency Clue Challenge?</h4>
+        <p>The challenge encourages learners to investigate the cultural and historical narratives depicted on global currencies, fostering research, teamwork and critical thinking skills【288058567004967†L24-L29】.</p>
+      </div>
+      <div class="faq-item">
+        <h4>How do I use the Quantum Mastery Console?</h4>
+        <p>Enter a country name or keyword to receive immediate insights about the currency’s symbolism. Supported terms include Mexico, Israel, Palestine and Canada.</p>
+      </div>
+      <div class="faq-item">
+        <h4>Can I run this site offline?</h4>
+        <p>Yes. All assets, styles and scripts are embedded or stored locally, ensuring that the experience remains consistent without an internet connection.</p>
+      </div>
+    </div>
+  </section>
 
-    <!-- CREATOR CONTACT -->
-    <section class="container contact-section">
-        <h2 class="section-title">ARCHITECT OF TRANSFORMATION</h2>
-        <div class="contact-card">
-            <div class="contact-title">Created By</div>
-            <div class="contact-name">Abraham Nesheiwat</div>
-            <div class="contact-info">
-                <div class="contact-item">📧 <a href="mailto:nesheiwatabraham@gmail.com">nesheiwatabraham@gmail.com</a></div>
-                <div class="contact-item">📱 <a href="tel:+16266232844">(626) 623-2844</a></div>
-                <div class="contact-item">💼 <a href="https://linkedin.com" target="_blank">LinkedIn Profile</a></div>
-            </div>
-        </div>
-    </section>
+  <!-- Quiz Section -->
+  <section id="quiz-section">
+    <h2 class="section-header">Test Your Knowledge</h2>
+    <div class="quiz">
+      <h3>Which country’s currency features a monument known as the “angel of freedom”?</h3>
+      <div class="quiz-options">
+        <button data-answer="false">Israel</button>
+        <button data-answer="true">Mexico</button>
+        <button data-answer="false">Palestine</button>
+        <button data-answer="false">Canada</button>
+      </div>
+      <div class="quiz-feedback" id="quiz-feedback"></div>
+    </div>
+  </section>
 
-    <script>
-        // INTERSECTION OBSERVER FOR SCROLL ANIMATIONS
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
+  <!-- Resources Section -->
+  <section id="resources-section">
+    <h2 class="section-header">Scholarly &amp; Community Resources</h2>
+    <div class="resources">
+      <ul>
+        <li><a href="https://doi.org/10.1163/15685209-12341439" target="_blank" rel="noopener">Sinisi&nbsp;F. (2017) – Royal imagery on Kushan coins【288058567004967†L100-L104】</a></li>
+        <li><a href="https://www.gao.gov/archive/1999/gg99024.pdf" target="_blank" rel="noopener">GAO Report (1999) – New Dollar Coin: Statue of Liberty vs. Sacagawea【288058567004967†L105-L106】</a></li>
+        <li><a href="https://www.theibns.org/joomla/index.php" target="_blank" rel="noopener">International Bank Note Society (IBNS)【288058567004967†L107-L109】</a></li>
+        <li><a href="https://www.money.org/" target="_blank" rel="noopener">American Numismatic Association (ANA)【288058567004967†L109-L110】</a></li>
+      </ul>
+    </div>
+  </section>
 
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('visible');
-                }
-            });
-        }, observerOptions);
+  <!-- Footer -->
+  <footer>
+    <div style="max-width:900px;margin:0 auto;">
+      <p>©&nbsp;2025&nbsp;Zenith Protocol – Designed to ignite curiosity and cultivate a growth mindset.</p>
+      <p style="margin-top:0.5rem;">Footnotes &amp; Citations:</p>
+      <ol>
+        <li>Introduction and learning objectives describing cultural exploration, research skills, communication and collaboration【288058567004967†L24-L29】.</li>
+        <li>Step‑by‑step activity instructions including group formation, clue distribution, analysis and presentation【288058567004967†L39-L93】.</li>
+        <li>Examples of clue cards featuring Mexico, Israel, Palestine and Canada【288058567004967†L56-L66】.</li>
+        <li>References to scholarly sources and community resources for further study【288058567004967†L100-L110】.</li>
+      </ol>
+    </div>
+  </footer>
 
-        // Observe all fade-in elements
-        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-        
-        // Observe objectives list items
-        document.querySelectorAll('.objectives-list li').forEach(el => observer.observe(el));
+  <!-- Sticky CTA & Scroll top -->
+  <div class="sticky-cta" id="sticky-cta">
+    <button onclick="document.getElementById('console-section').scrollIntoView({behavior:'smooth'});">Join the Mission</button>
+  </div>
+  <button class="scroll-top" id="scroll-top" aria-label="Scroll to top">↑</button>
 
-        // PHASE CARD EXPANSION
-        document.querySelectorAll('.phase-card').forEach(card => {
-            card.addEventListener('click', () => {
-                const wasExpanded = card.classList.contains('expanded');
-                
-                // Close all cards
-                document.querySelectorAll('.phase-card').forEach(c => {
-                    c.classList.remove('expanded', 'active');
-                });
-                
-                // Open clicked card if it wasn't expanded
-                if (!wasExpanded) {
-                    card.classList.add('expanded', 'active');
-                }
-            });
+  <script>
+    // Scroll progress bar update
+    const progressBar = document.getElementById('scroll-progress');
+    window.addEventListener('scroll', () => {
+      const scrollY = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrolled = docHeight > 0 ? (scrollY / docHeight) * 100 : 0;
+      progressBar.style.width = scrolled + '%';
+    });
+
+    // Theme toggle
+    const themeToggle = document.getElementById('theme-toggle');
+    themeToggle.addEventListener('click', () => {
+      document.documentElement.classList.toggle('light-mode');
+    });
+
+    // Intersection observer for reveal animations
+    const revealObs = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) entry.target.classList.add('visible');
+      });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.step, .testimonial, .stat').forEach(el => revealObs.observe(el));
+
+    // Console functionality
+    (function() {
+      const consoleEl = document.getElementById('console');
+      const inputEl = document.getElementById('console-input');
+      const sendBtn = document.getElementById('console-send');
+      const bar = document.getElementById('mastery-bar');
+      let mastery = 0;
+      function append(text, cls) {
+        const p = document.createElement('p');
+        p.textContent = text;
+        p.className = cls;
+        consoleEl.appendChild(p);
+        consoleEl.scrollTop = consoleEl.scrollHeight;
+      }
+      function typeOut(text) {
+        let i = 0;
+        const line = document.createElement('p');
+        line.className = 'system';
+        consoleEl.appendChild(line);
+        const timer = setInterval(() => {
+          line.textContent = text.substring(0, i);
+          i++;
+          if (i > text.length) {
+            clearInterval(timer);
+            consoleEl.scrollTop = consoleEl.scrollHeight;
+          }
+        }, 25);
+      }
+      function updateMastery() {
+        mastery = Math.min(mastery + 25, 100);
+        bar.style.width = mastery + '%';
+      }
+      function respond(val) {
+        const v = val.toLowerCase();
+        if (/mexico/.test(v)) typeOut('Country detected: Mexico – The Angel of Independence stands tall on the peso.');
+        else if (/israel/.test(v)) typeOut('Country detected: Israel – David Ben‑Gurion graces the shekel, a tribute to nation‑building.');
+        else if (/palestine/.test(v)) typeOut('Country detected: Palestine – The olive tree symbolises peace and endurance.');
+        else if (/canada/.test(v)) typeOut('Country detected: Canada – The loonie celebrates the noble loon.');
+        else typeOut('No direct match found. Try entering Mexico, Israel, Palestine or Canada.');
+        updateMastery();
+      }
+      function handle() {
+        const value = inputEl.value.trim();
+        if (!value) return;
+        append('>>> ' + value, 'user');
+        respond(value);
+        inputEl.value = '';
+      }
+      sendBtn.addEventListener('click', handle);
+      inputEl.addEventListener('keypress', e => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          handle();
+        }
+      });
+    })();
+
+    // Star field animation using canvas
+    (function() {
+      const canvas = document.getElementById('stars');
+      const ctx = canvas.getContext('2d');
+      let width, height;
+      let stars = [];
+      function resize() {
+        width = canvas.width = window.innerWidth;
+        height = canvas.height = document.querySelector('.hero').offsetHeight;
+        // Recreate stars based on size
+        stars = Array.from({length: Math.floor(width * 0.05)}, () => {
+          return { x: Math.random()*width, y: Math.random()*height, r: Math.random()*1.5 + 0.5, dy: Math.random()*0.3 + 0.1 };
         });
-
-        // PROGRESS BAR UPDATE ON SCROLL
-        const progressBar = document.getElementById('progressBar');
-        const progressPercentage = document.getElementById('progressPercentage');
-        const masteryPercent = document.getElementById('masteryPercent');
-        const progressSegments = document.querySelectorAll('.progress-segment');
-        const phaseCards = document.querySelectorAll('.phase-card');
-
-        const updateProgress = () => {
-            let activePhases = 0;
-            
-            phaseCards.forEach((card, index) => {
-                const rect = card.getBoundingClientRect();
-                const isInView = rect.top < window.innerHeight * 0.6;
-                
-                if (isInView) {
-                    activePhases = Math.max(activePhases, index + 1);
-                    progressSegments[index].classList.add('active');
-                } else {
-                    progressSegments[index].classList.remove('active');
-                }
-            });
-
-            const percentage = (activePhases / phaseCards.length) * 100;
-            progressBar.style.width = percentage + '%';
-            progressPercentage.textContent = Math.round(percentage) + '% → 100% MASTERY ACHIEVED';
-            masteryPercent.textContent = Math.round(percentage) + '%';
-        };
-
-        // Update on scroll
-        window.addEventListener('scroll', updateProgress);
-        
-        // Initial update
-        setTimeout(updateProgress, 500);
-
-        // SMOOTH SCROLL FOR CTA BUTTON
-        document.querySelector('.cta-button').addEventListener('click', (e) => {
-            e.preventDefault();
-            const target = document.querySelector('#mission-briefing');
-            target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+      function animate() {
+        ctx.clearRect(0,0,width,height);
+        ctx.fillStyle = '#ffffff';
+        stars.forEach(s => {
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
+          ctx.fill();
+          s.y += s.dy;
+          if (s.y > height) s.y = 0;
         });
+        requestAnimationFrame(animate);
+      }
+      window.addEventListener('resize', resize);
+      resize();
+      animate();
+    })();
 
-        // INITIAL ANIMATIONS
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                document.querySelectorAll('.value-card').forEach(card => {
-                    card.classList.add('visible');
-                });
-            }, 300);
+    // Gallery lightbox
+    (function() {
+      const lightbox = document.getElementById('lightbox');
+      const imgEl = lightbox.querySelector('img');
+      document.querySelectorAll('.gallery-item img').forEach(img => {
+        img.addEventListener('click', e => {
+          imgEl.src = e.target.src;
+          imgEl.alt = e.target.alt;
+          lightbox.style.display = 'flex';
         });
-    </script>
-</body>
-</html>
+      });
+      lightbox.addEventListener('click', () => {
+        lightbox.style.display = 'none';
+      });
+    })();
+
+    // Stats counters animation
+    (function() {
+      const counters = document.querySelectorAll('.stat-number');
+      const statObs = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const el = entry.target;
+            const target = parseInt(el.getAttribute('data-count'));
+            let current = 0;
+            const step = Math.ceil(target / 100);
+            const interval = setInterval(() => {
+              current += step;
+              if (current >= target) {
+                current = target;
+                clearInterval(interval);
+              }
+              el.textContent = current;
+            }, 20);
+            statObs.unobserve(el);
+          }
+        });
+      }, { threshold: 0.6 });
+      counters.forEach(c => statObs.observe(c));
+    })();
+
+    // Quiz logic
+    (function() {
+      const buttons = document.querySelectorAll('.quiz-options button');
+      const feedback = document.getElementById('quiz-feedback');
+      buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          if (btn.dataset.answer === 'true') {
+            feedback.textContent = 'Correct! The Angel of Independence resides on Mexico’s peso.';
+          } else {
+            feedback.textContent = 'Incorrect. Try again!';
+          }
+        });
+      });
+    })();
+
+    // Sticky CTA and scroll top button
+    (function() {
+      const sticky = document.getElementById('sticky-cta');
+      const scrollTopBtn = document.getElementById('scroll-top');
+      window.addEventListener('scroll', () => {
+        const y = window.scrollY;
+        const heroHeight = document.querySelector('.hero').offsetHeight;
+        if (y > heroHeight * 0.6) sticky.style.display = 'block';
+        else sticky.style.display = 'none';
+        if (y > 400) scrollTopBtn.style.display = 'block';
+        else scrollTopBtn.style.display = 'none';
+      });
+      scrollTopBtn.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    })();
+  </script>
+
+</body></html>
